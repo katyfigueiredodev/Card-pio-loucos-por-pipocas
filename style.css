@@ -92,3 +92,10 @@ footer {
         padding: 20px;
     }
 }
+.logo {
+    width: 150px;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px;
+    object-fit: contain;
+}
