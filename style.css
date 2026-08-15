@@ -1,101 +1,313 @@
+/* =========================================================
+   LOUCOS POR PIPOCAS
+   Cardápio Digital
+   ========================================================= */
+
+/* RESET */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background: #fff8ef;
-    color: #3b1f0f;
-    line-height: 1.6;
+/* VARIÁVEIS DA MARCA */
+:root {
+    --marrom: #3b1f0f;
+    --marrom-claro: #5a321b;
+    --creme: #fff8ef;
+    --creme-escuro: #f3dfc5;
+    --branco: #ffffff;
+    --dourado: #d99a3d;
+    --texto: #3b1f0f;
+    --sombra: rgba(59, 31, 15, 0.12);
 }
+
+/* BODY */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--creme);
+    color: var(--texto);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* =========================================================
+   CABEÇALHO
+   ========================================================= */
 
 header {
-    background: #3b1f0f;
-    color: white;
+    background: var(--marrom);
+    color: var(--branco);
     text-align: center;
-    padding: 40px 20px;
+    padding: 35px 20px 30px;
+    border-bottom: 5px solid var(--dourado);
 }
 
-header h1 {
-    font-size: 2rem;
-    margin-bottom: 10px;
+/* LOGO */
+.logo {
+    display: block;
+    width: 220px;
+    max-width: 80%;
+    height: auto;
+    margin: 0 auto 15px;
 }
 
+/* FRASE DA MARCA */
 header p {
-    font-size: 1rem;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
 }
+
+/* =========================================================
+   CONTEÚDO PRINCIPAL
+   ========================================================= */
 
 main {
-    width: 90%;
-    max-width: 600px;
-    margin: 30px auto;
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 30px 18px 40px;
 }
+
+/* =========================================================
+   SEÇÕES / CARDS
+   ========================================================= */
 
 section {
-    background: white;
-    padding: 25px;
+    background: var(--branco);
     margin-bottom: 20px;
+    padding: 24px 22px;
     border-radius: 18px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 5px 18px var(--sombra);
+    border: 1px solid var(--creme-escuro);
 }
 
-section h2 {
-    margin-bottom: 10px;
+/* PRIMEIRA SEÇÃO */
+section:first-child {
+    text-align: center;
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    padding: 10px 10px 20px;
 }
+
+/* TÍTULOS */
+h2 {
+    color: var(--marrom);
+    font-size: 23px;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+/* TEXTO */
+section p {
+    font-size: 15px;
+    color: #6b5545;
+}
+
+/* =========================================================
+   DESTAQUE DOS PRODUTOS
+   ========================================================= */
+
+/* Copo 300ml e Pote 500ml */
+
+section:nth-child(2),
+section:nth-child(3) {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Faixa decorativa superior */
+
+section:nth-child(2)::before,
+section:nth-child(3)::before {
+    content: "";
+    display: block;
+    width: 55px;
+    height: 5px;
+    background: var(--dourado);
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/* PREÇOS */
 
 strong {
-    display: block;
+    display: inline-block;
     margin-top: 15px;
-    font-size: 1.4rem;
+    padding: 8px 15px;
+    background: var(--marrom);
+    color: var(--branco);
+    border-radius: 10px;
+    font-size: 21px;
+    font-weight: 700;
 }
+
+/* =========================================================
+   SABORES
+   ========================================================= */
 
 ul {
     list-style: none;
     margin-top: 15px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
 }
 
 li {
-    background: #fff1dc;
-    padding: 12px;
-    margin-bottom: 8px;
+    background: var(--creme);
+    border: 1px solid var(--creme-escuro);
     border-radius: 10px;
+    padding: 11px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--marrom);
+    text-align: center;
 }
+
+/* =========================================================
+   BOTÃO DE PEDIDO
+   ========================================================= */
 
 button {
+    display: block;
     width: 100%;
     margin-top: 20px;
-    padding: 15px;
+    padding: 15px 20px;
     border: none;
-    border-radius: 30px;
-    background: #f28c28;
-    color: white;
-    font-size: 1.1rem;
-    font-weight: bold;
+    border-radius: 12px;
+    background: var(--marrom);
+    color: var(--branco);
+    font-size: 16px;
+    font-weight: 700;
     cursor: pointer;
+    transition: 0.3s ease;
 }
+
+/* EFEITO AO PASSAR O MOUSE */
+
+button:hover {
+    background: var(--marrom-claro);
+    transform: translateY(-2px);
+    box-shadow: 0 7px 15px var(--sombra);
+}
+
+/* EFEITO AO CLICAR */
+
+button:active {
+    transform: translateY(0);
+}
+
+/* =========================================================
+   RODAPÉ
+   ========================================================= */
 
 footer {
+    background: var(--marrom);
+    color: var(--branco);
     text-align: center;
-    padding: 30px 20px;
-    background: #3b1f0f;
-    color: white;
+    padding: 25px 15px;
+    margin-top: 10px;
 }
 
-@media (max-width: 480px) {
-    header h1 {
-        font-size: 1.7rem;
+footer p {
+    font-size: 13px;
+    margin: 3px 0;
+}
+
+/* =========================================================
+   RESPONSIVIDADE
+   CELULARES
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    header {
+        padding: 28px 15px 25px;
+    }
+
+    .logo {
+        width: 200px;
+        max-width: 75%;
+        margin-bottom: 12px;
+    }
+
+    header p {
+        font-size: 14px;
+    }
+
+    main {
+        padding: 22px 14px 30px;
     }
 
     section {
-        padding: 20px;
+        padding: 20px 18px;
+        margin-bottom: 16px;
+        border-radius: 15px;
+    }
+
+    section:first-child {
+        padding: 5px 5px 15px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    section p {
+        font-size: 14px;
+    }
+
+    strong {
+        font-size: 19px;
+        padding: 7px 13px;
+    }
+
+    ul {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    li {
+        padding: 10px;
+    }
+
+    button {
+        font-size: 15px;
+        padding: 14px 15px;
+    }
+
+    footer {
+        padding: 22px 12px;
     }
 }
-.logo {
-    width: 220px;
-    height: auto;
-    display: block;
-    margin: 0 auto 20px;
-    object-fit: contain;
+
+/* =========================================================
+   CELULARES MUITO PEQUENOS
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .logo {
+        width: 180px;
+    }
+
+    main {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    section {
+        padding: 18px 15px;
+    }
+
+    h2 {
+        font-size: 19px;
+    }
+
+    strong {
+        font-size: 18px;
+    }
 }
