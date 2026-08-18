@@ -109,3 +109,13 @@ footer {
         padding: 20px;
     }
 }
+
+
+section img {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    display: block;
+    margin: 15px auto 20px;
+    border-radius: 15px;
+}
