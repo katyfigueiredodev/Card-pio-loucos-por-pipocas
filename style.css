@@ -100,7 +100,6 @@ footer {
     section img {
     max-width: 400px;
     height: 230px;
-    height: 320px;
     object-fit: cover;
     display: block;
     margin: 15px auto 20px;
