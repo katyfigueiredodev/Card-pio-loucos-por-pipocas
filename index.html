@@ -244,6 +244,94 @@ Vim pelo catálogo virtual da Loucos por Pipocas. 🍿`;
 
 
     calcularTotal300();
+    const precoPote500 = 19.99;
+
+function calcularTotal500() {
+    let quantidade = parseInt(
+        document.getElementById("quantidade500").value
+    );
+
+    if (!quantidade || quantidade < 1) {
+        quantidade = 1;
+    }
+
+    const total = precoPote500 * quantidade;
+
+    document.getElementById("total500").textContent =
+        total.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        });
+}
+
+
+function enviarPedido500() {
+
+    const sabor =
+        document.getElementById("sabor500").value;
+
+    const sabor2 =
+        document.getElementById("sabor500b").value;
+
+    let quantidade =
+        parseInt(document.getElementById("quantidade500").value);
+
+    const pagamento =
+        document.getElementById("pagamento500").value;
+
+
+    if (sabor === "") {
+        alert("Escolha o primeiro sabor para continuar.");
+        return;
+    }
+
+    if (!quantidade || quantidade < 1) {
+        alert("Informe uma quantidade válida.");
+        return;
+    }
+
+    if (pagamento === "") {
+        alert("Escolha a forma de pagamento.");
+        return;
+    }
+
+
+    const total = precoPote500 * quantidade;
+
+
+    const mensagem =
+`🍿 NOVO PEDIDO - LOUCOS POR PIPOCAS
+
+Produto: Pote 500 ml
+Sabor 1: ${sabor}
+Sabor 2: ${sabor2 || "Sem segundo sabor"}
+Quantidade: ${quantidade}
+
+Valor unitário: R$ 19,99
+Total: ${total.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL"
+})}
+
+Forma de pagamento: ${pagamento}
+
+Vim pelo catálogo virtual da Loucos por Pipocas. 🍿`;
+
+
+    const telefone = "5583987023672";
+
+    const linkWhatsApp =
+        "https://wa.me/" +
+        telefone +
+        "?text=" +
+        encodeURIComponent(mensagem);
+
+
+    window.open(linkWhatsApp, "_blank");
+}
+
+
+calcularTotal500();
 </script>
 </body>
 </html>
