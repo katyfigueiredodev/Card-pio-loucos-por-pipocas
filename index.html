@@ -224,92 +224,33 @@
         <p>© 2026 Loucos por Pipocas</p>
         <p>João Pessoa - PB</p>
     </footer>
-<script>
-    const precoCopo300 = 12.99;
+  <script>
+const precoCopo300 = 12.99;
+const precoPote500 = 19.99;
 
-    function calcularTotal300() {
-        let quantidade = parseInt(
-            document.getElementById("quantidade300").value
-        );
+let pedido = [];
 
-        if (!quantidade || quantidade < 1) {
-            quantidade = 1;
-        }
+function formatarDinheiro(valor) {
+    return valor.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+    });
+}
 
-        const total = precoCopo300 * quantidade;
+function calcularTotal300() {
+    let quantidade = parseInt(
+        document.getElementById("quantidade300").value
+    );
 
-        document.getElementById("total300").textContent =
-            total.toLocaleString("pt-BR", {
-                style: "currency",
-                currency: "BRL"
-            });
+    if (!quantidade || quantidade < 1) {
+        quantidade = 1;
     }
 
+    const total = precoCopo300 * quantidade;
 
-    function enviarPedido300() {
-
-        const sabor =
-            document.getElementById("sabor300").value;
-
-        let quantidade =
-            parseInt(document.getElementById("quantidade300").value);
-
-        const pagamento =
-            document.getElementById("pagamento300").value;
-
-
-        if (sabor === "") {
-            alert("Escolha um sabor para continuar.");
-            return;
-        }
-
-        if (!quantidade || quantidade < 1) {
-            alert("Informe uma quantidade válida.");
-            return;
-        }
-
-        if (pagamento === "") {
-            alert("Escolha a forma de pagamento.");
-            return;
-        }
-
-
-        const total = precoCopo300 * quantidade;
-
-
-        const mensagem =
-`🍿 NOVO PEDIDO - LOUCOS POR PIPOCAS
-
-Produto: Copo 300 ml
-Sabor: ${sabor}
-Quantidade: ${quantidade}
-
-Valor unitário: R$ 12,99
-Total: ${total.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL"
-})}
-
-Forma de pagamento: ${pagamento}
-
-Vim pelo catálogo virtual da Loucos por Pipocas. 🍿`;
-
-
-        const telefone = "5583987023672";
-
-        const linkWhatsApp =
-            "https://wa.me/" +
-            telefone +
-            "?text=" +
-            encodeURIComponent(mensagem);
-
-
-        window.open(linkWhatsApp, "_blank");
-    }
-
-
-    calcularTotal300();
-    const precoPote500 = 19.99;
+    document.getElementById("total300").textContent =
+        formatarDinheiro(total);
+}
 
 function calcularTotal500() {
     let quantidade = parseInt(
@@ -323,30 +264,21 @@ function calcularTotal500() {
     const total = precoPote500 * quantidade;
 
     document.getElementById("total500").textContent =
-        total.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL"
-        });
+        formatarDinheiro(total);
 }
 
-
-function enviarPedido500() {
-
-    const sabor =
-        document.getElementById("sabor500").value;
+function adicionarCopo300() {
+    const sabor1 =
+        document.getElementById("sabor300").value;
 
     const sabor2 =
-        document.getElementById("sabor500b").value;
+        document.getElementById("sabor300b").value;
 
     let quantidade =
-        parseInt(document.getElementById("quantidade500").value);
+        parseInt(document.getElementById("quantidade300").value);
 
-    const pagamento =
-        document.getElementById("pagamento500").value;
-
-
-    if (sabor === "") {
-        alert("Escolha o primeiro sabor para continuar.");
+    if (sabor1 === "") {
+        alert("Escolha o primeiro sabor do Copo 300 ml.");
         return;
     }
 
@@ -355,33 +287,160 @@ function enviarPedido500() {
         return;
     }
 
+    const subtotal = precoCopo300 * quantidade;
+
+    pedido.push({
+        produto: "Copo 300 ml",
+        sabor1: sabor1,
+        sabor2: sabor2 || "Sem segundo sabor",
+        quantidade: quantidade,
+        preco: precoCopo300,
+        subtotal: subtotal
+    });
+
+    atualizarCarrinho();
+
+    alert("Copo 300 ml adicionado ao pedido! 🍿");
+}
+
+function adicionarPote500() {
+    const sabor1 =
+        document.getElementById("sabor500").value;
+
+    const sabor2 =
+        document.getElementById("sabor500b").value;
+
+    let quantidade =
+        parseInt(document.getElementById("quantidade500").value);
+
+    if (sabor1 === "") {
+        alert("Escolha o primeiro sabor do Pote 500 ml.");
+        return;
+    }
+
+    if (!quantidade || quantidade < 1) {
+        alert("Informe uma quantidade válida.");
+        return;
+    }
+
+    const subtotal = precoPote500 * quantidade;
+
+    pedido.push({
+        produto: "Pote 500 ml",
+        sabor1: sabor1,
+        sabor2: sabor2 || "Sem segundo sabor",
+        quantidade: quantidade,
+        preco: precoPote500,
+        subtotal: subtotal
+    });
+
+    atualizarCarrinho();
+
+    alert("Pote 500 ml adicionado ao pedido! 🍿");
+}
+
+function atualizarCarrinho() {
+    const resumo =
+        document.getElementById("resumoPedido");
+
+    const totalPedido =
+        document.getElementById("totalPedido");
+
+    if (pedido.length === 0) {
+        resumo.innerHTML =
+            "<p>Nenhum produto adicionado ainda.</p>";
+
+        totalPedido.textContent = "R$ 0,00";
+        return;
+    }
+
+    let html = "";
+    let total = 0;
+
+    pedido.forEach(function(item, indice) {
+        total += item.subtotal;
+
+        html += `
+            <div>
+                <strong>${item.produto}</strong>
+
+                <p>
+                    Sabor 1: ${item.sabor1}<br>
+                    Sabor 2: ${item.sabor2}<br>
+                    Quantidade: ${item.quantidade}<br>
+                    Subtotal: ${formatarDinheiro(item.subtotal)}
+                </p>
+
+                <button
+                    type="button"
+                    onclick="removerItem(${indice})"
+                >
+                    Remover
+                </button>
+
+                <hr>
+            </div>
+        `;
+    });
+
+    resumo.innerHTML = html;
+
+    totalPedido.textContent =
+        formatarDinheiro(total);
+}
+
+function removerItem(indice) {
+    pedido.splice(indice, 1);
+    atualizarCarrinho();
+}
+
+function limparPedido() {
+    pedido = [];
+    atualizarCarrinho();
+}
+
+function enviarPedidoCompleto() {
+    if (pedido.length === 0) {
+        alert("Adicione pelo menos um produto ao pedido.");
+        return;
+    }
+
+    const pagamento =
+        document.getElementById("pagamentoPedido").value;
+
     if (pagamento === "") {
         alert("Escolha a forma de pagamento.");
         return;
     }
 
+    let total = 0;
 
-    const total = precoPote500 * quantidade;
-
-
-    const mensagem =
+    let mensagem =
 `🍿 NOVO PEDIDO - LOUCOS POR PIPOCAS
 
-Produto: Pote 500 ml
-Sabor 1: ${sabor}
-Sabor 2: ${sabor2 || "Sem segundo sabor"}
-Quantidade: ${quantidade}
+`;
 
-Valor unitário: R$ 19,99
-Total: ${total.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL"
-})}
+    pedido.forEach(function(item, indice) {
+        total += item.subtotal;
+
+        mensagem +=
+`${indice + 1}. ${item.produto}
+
+Sabor 1: ${item.sabor1}
+Sabor 2: ${item.sabor2}
+Quantidade: ${item.quantidade}
+Valor unitário: ${formatarDinheiro(item.preco)}
+Subtotal: ${formatarDinheiro(item.subtotal)}
+
+`;
+    });
+
+    mensagem +=
+`💰 TOTAL DO PEDIDO: ${formatarDinheiro(total)}
 
 Forma de pagamento: ${pagamento}
 
 Vim pelo catálogo virtual da Loucos por Pipocas. 🍿`;
-
 
     const telefone = "5583987023672";
 
@@ -391,11 +450,12 @@ Vim pelo catálogo virtual da Loucos por Pipocas. 🍿`;
         "?text=" +
         encodeURIComponent(mensagem);
 
-
     window.open(linkWhatsApp, "_blank");
 }
 
+calcularTotal300();
 calcularTotal500();
+atualizarCarrinho();
 </script>
 </body>
 </html>
