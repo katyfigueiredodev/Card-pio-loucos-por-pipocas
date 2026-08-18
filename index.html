@@ -90,22 +90,67 @@
     </button>
 </section>
 
-        <section>
+       <section>
     <h2>🍿 Pote 500ml</h2>
-        <img src="pote-500ml-cookie.png" alt="Pote 500ml Loucos por Pipocas">
+
+    <img src="pote-500ml-cookie.png" alt="Pote 500ml Loucos por Pipocas">
+
     <p>Mais pipoca para deixar seu momento ainda mais gostoso.</p>
 
-    <p><strong>Escolha seu sabor:</strong></p>
+    <p><strong>Monte seu pedido:</strong></p>
 
-    <ul>
-        <li>Creme de Ninho</li>
-        <li>Creme de Avelã</li>
-        <li>Bueno</li>
-        <li>Pistache</li>
-        <li>Cookie Branco</li>
-    </ul>
+    <label for="sabor500">Sabor 1:</label>
+    <select id="sabor500">
+        <option value="">Selecione o primeiro sabor</option>
+        <option value="Creme de Ninho">Creme de Ninho</option>
+        <option value="Creme de Avelã">Creme de Avelã</option>
+        <option value="Bueno">Bueno</option>
+        <option value="Pistache">Pistache</option>
+        <option value="Cookie Branco">Cookie Branco</option>
+    </select>
 
-    <strong>R$ 19,99</strong>
+    <br><br>
+
+    <label for="sabor500b">Sabor 2:</label>
+    <select id="sabor500b">
+        <option value="">Sem segundo sabor</option>
+        <option value="Creme de Ninho">Creme de Ninho</option>
+        <option value="Creme de Avelã">Creme de Avelã</option>
+        <option value="Bueno">Bueno</option>
+        <option value="Pistache">Pistache</option>
+        <option value="Cookie Branco">Cookie Branco</option>
+    </select>
+
+    <br><br>
+
+    <label for="quantidade500">Quantidade:</label>
+    <input
+        type="number"
+        id="quantidade500"
+        value="1"
+        min="1"
+        oninput="calcularTotal500()"
+    >
+
+    <br><br>
+
+    <label for="pagamento500">Forma de pagamento:</label>
+    <select id="pagamento500">
+        <option value="">Selecione</option>
+        <option value="Pix">Pix</option>
+        <option value="Dinheiro">Dinheiro</option>
+        <option value="Cartão">Cartão</option>
+    </select>
+
+    <p>
+        <strong>
+            Total: <span id="total500">R$ 19,99</span>
+        </strong>
+    </p>
+
+    <button type="button" onclick="enviarPedido500()">
+        Enviar pedido pelo WhatsApp 🍿
+    </button>
 </section>
 
     </main>
