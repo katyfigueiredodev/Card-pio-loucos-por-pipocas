@@ -27,22 +27,55 @@
             <p>Escolha seu tamanho e descubra seu sabor favorito.</p>
         </section>
 
-       <section>
+     <section>
     <h2>🍿 Copo 300ml</h2>
-          <img src="copo-300ml-pistache.png.png" alt="Copo 300ml Loucos por Pipocas"> 
+
+    <img src="copo-300ml-pistache.png.png" alt="Copo 300ml Loucos por Pipocas">
+
     <p>Pipoca gourmet crocante e irresistível.</p>
 
-    <p><strong>Escolha seu sabor:</strong></p>
+    <p><strong>Monte seu pedido:</strong></p>
 
-    <ul>
-        <li>Creme de Ninho</li>
-        <li>Creme de Avelã</li>
-        <li>Bueno</li>
-        <li>Pistache</li>
-        <li>Cookie Branco</li>
-    </ul>
+    <label for="sabor300">Escolha o sabor:</label>
+    <select id="sabor300">
+        <option value="">Selecione um sabor</option>
+        <option value="Creme de Ninho">Creme de Ninho</option>
+        <option value="Creme de Avelã">Creme de Avelã</option>
+        <option value="Bueno">Bueno</option>
+        <option value="Pistache">Pistache</option>
+        <option value="Cookie Branco">Cookie Branco</option>
+    </select>
 
-    <strong>R$ 12,99</strong>
+    <br><br>
+
+    <label for="quantidade300">Quantidade:</label>
+    <input 
+        type="number" 
+        id="quantidade300" 
+        value="1" 
+        min="1"
+        oninput="calcularTotal300()"
+    >
+
+    <br><br>
+
+    <label for="pagamento300">Forma de pagamento:</label>
+    <select id="pagamento300">
+        <option value="">Selecione</option>
+        <option value="Pix">Pix</option>
+        <option value="Dinheiro">Dinheiro</option>
+        <option value="Cartão">Cartão</option>
+    </select>
+
+    <p>
+        <strong>
+            Total: <span id="total300">R$ 12,99</span>
+        </strong>
+    </p>
+
+    <button type="button" onclick="enviarPedido300()">
+        Enviar pedido pelo WhatsApp 🍿
+    </button>
 </section>
 
         <section>
@@ -76,6 +109,91 @@
         <p>© 2026 Loucos por Pipocas</p>
         <p>João Pessoa - PB</p>
     </footer>
+<script>
+    const precoCopo300 = 12.99;
 
+    function calcularTotal300() {
+        let quantidade = parseInt(
+            document.getElementById("quantidade300").value
+        );
+
+        if (!quantidade || quantidade < 1) {
+            quantidade = 1;
+        }
+
+        const total = precoCopo300 * quantidade;
+
+        document.getElementById("total300").textContent =
+            total.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL"
+            });
+    }
+
+
+    function enviarPedido300() {
+
+        const sabor =
+            document.getElementById("sabor300").value;
+
+        let quantidade =
+            parseInt(document.getElementById("quantidade300").value);
+
+        const pagamento =
+            document.getElementById("pagamento300").value;
+
+
+        if (sabor === "") {
+            alert("Escolha um sabor para continuar.");
+            return;
+        }
+
+        if (!quantidade || quantidade < 1) {
+            alert("Informe uma quantidade válida.");
+            return;
+        }
+
+        if (pagamento === "") {
+            alert("Escolha a forma de pagamento.");
+            return;
+        }
+
+
+        const total = precoCopo300 * quantidade;
+
+
+        const mensagem =
+`🍿 NOVO PEDIDO - LOUCOS POR PIPOCAS
+
+Produto: Copo 300 ml
+Sabor: ${sabor}
+Quantidade: ${quantidade}
+
+Valor unitário: R$ 12,99
+Total: ${total.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL"
+})}
+
+Forma de pagamento: ${pagamento}
+
+Vim pelo catálogo virtual da Loucos por Pipocas. 🍿`;
+
+
+        const telefone = "5583987023672";
+
+        const linkWhatsApp =
+            "https://wa.me/" +
+            telefone +
+            "?text=" +
+            encodeURIComponent(mensagem);
+
+
+        window.open(linkWhatsApp, "_blank");
+    }
+
+
+    calcularTotal300();
+</script>
 </body>
 </html>
